@@ -93,7 +93,7 @@ def valid():
         positions = np.argwhere(valids == 1).flatten().tolist()
         for i in positions:
             print(action_to_position(i))
-        return {"valids": positions}
+        return {"valid_actions": positions}
     except Exception:
         abort(500)
 
