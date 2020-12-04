@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "193e6914-790e-4d66-8f5c-8f055cd5b4ad",
+		"name": "otholla",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "prob",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"board\":[[ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,-1,1,0,0,0], [ 0,0,0,1,-1,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0]],\n    \"cur_player\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/prob",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"prob"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "is_win",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"board\":[[ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,-1,1,0,0,0], [ 0,0,0,1,-1,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0]],\n    \"cur_player\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/is_end",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"is_end"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "next_state",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6a18ca91-9ebf-4235-ac8b-07e03e910459",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"board\":[[ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,-1,1,0,0,0], [ 0,0,0,1,-1,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0]],\n    \"cur_player\": 1,\n    \"action\": 44\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/next_state",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"next_state"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "valid",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "74ee3975-ba47-49e8-839c-b780ae8f6a54",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"board\":[[ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,-1,1,0,0,0], [ 0,0,0,1,-1,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0], [ 0,0,0,0,0,0,0,0]],\n    \"cur_player\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/valid",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"valid"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
