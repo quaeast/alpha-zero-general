@@ -113,6 +113,6 @@ def test():
 
 
 if __name__ == '__main__':
-    # ai = ai_factory()
-    # app.run()
-    print(test())
+    ai = ai_factory()
+    app.run()
+    # print(test())
