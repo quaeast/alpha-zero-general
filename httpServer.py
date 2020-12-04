@@ -26,10 +26,18 @@ def ai_factory():
 
 
 def show_board(board):
-    for line in board:
-        for point in line:
-            print("%3d" % point, end='')
+    for i in range(-1, 8):
+        print("%3d" % i, end='')
+    print()
+    for i in range(8):
+        print("%3d" % i, end='')
+        for j in range(8):
+            print("%3d" % board[j][i], end='')
         print()
+
+
+def action_to_position(action):
+    return [action // 8, action % 8]
 
 
 @app.route('/prob', methods=['POST'])
@@ -82,8 +90,10 @@ def valid():
     try:
         np_board = np.array(board, dtype=np.int)
         valids = game.getValidMoves(game.getCanonicalForm(np_board, cur_player), 1)
-        positions = np.argwhere(valids == 1).flatten()
-        return {"valids": positions.tolist()}
+        positions = np.argwhere(valids == 1).flatten().tolist()
+        for i in positions:
+            print(action_to_position(i))
+        return {"valids": positions}
     except Exception:
         abort(500)
 
@@ -91,12 +101,18 @@ def valid():
 def test():
     board = [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, -1, 1, 0, 0, 0],
              [0, 0, 0, 1, -1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]]
+    show_board(board)
     board = np.array(board, dtype=np.int)
     test_ai = ai_factory()
     next_step = test_ai(board)
+    print(next_step)
+    print(action_to_position(26))
+    next_board, next_player = game.getNextState(board, 1, 26)
+    show_board(next_board)
     return next_step
 
 
 if __name__ == '__main__':
-    ai = ai_factory()
-    app.run()
+    # ai = ai_factory()
+    # app.run()
+    print(test())
