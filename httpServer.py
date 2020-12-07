@@ -41,7 +41,8 @@ def action_to_position(action):
 
 # 这个地方结尾得加 / 否则请求的时候如果结尾加了 / 就会 404
 # 加了斜线之后如果请求没有 / 会自动 308
-@app.route('/prob/', methods=['POST'])
+# 但是 308 之后前端又不好使了，真是太沙雕了，所以还是前端注意一下吧，这里不写了
+@app.route('/prob', methods=['POST'])
 def prob():
     body_json = request.json
     board = body_json['board']
@@ -55,7 +56,7 @@ def prob():
         abort(500)
 
 
-@app.route('/is_end/', methods=['POST'])
+@app.route('/is_end', methods=['POST'])
 def is_end():
     body_json = request.json
     board = body_json['board']
@@ -68,7 +69,7 @@ def is_end():
         abort(500)
 
 
-@app.route('/next_state/', methods=['POST'])
+@app.route('/next_state', methods=['POST'])
 def next_state():
     body_json = request.json
     board = body_json['board']
@@ -82,7 +83,7 @@ def next_state():
         abort(500)
 
 
-@app.route('/valid/', methods=['POST'])
+@app.route('/valid', methods=['POST'])
 def valid():
     body_json = request.json
     board = body_json['board']
