@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import Flask, make_response
 from flask import request
 from flask import abort
+from flask_cors import CORS
 import Arena
 from MCTS import MCTS
 from othello.OthelloGame import OthelloGame
@@ -13,6 +14,16 @@ from utils import *
 game = OthelloGame(8)
 ai = None
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
+
+
+@app.after_request
+def after_request(resp):
+    resp = make_response(resp)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Access-Control-Allow-Methods'] = 'GET,POST'
+    resp.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
+    return resp
 
 
 def ai_factory():
@@ -38,6 +49,7 @@ def show_board(board):
 
 def action_to_position(action):
     return [action // 8, action % 8]
+
 
 # 这个地方结尾得加 / 否则请求的时候如果结尾加了 / 就会 404
 # 加了斜线之后如果请求没有 / 会自动 308
@@ -93,9 +105,10 @@ def valid():
         np_board = np.array(board, dtype=np.int)
         valids = game.getValidMoves(game.getCanonicalForm(np_board, cur_player), 1)
         positions = np.argwhere(valids == 1).flatten().tolist()
-        for i in positions:
-            print(action_to_position(i))
-        return {"valid_actions": positions}
+        twoDPositions = [action_to_position(i) for i in positions]
+        for i in twoDPositions:
+            print(i)
+        return {"valid_actions": twoDPositions}
     except Exception:
         abort(500)
 
