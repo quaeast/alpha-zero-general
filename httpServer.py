@@ -100,14 +100,11 @@ def valid():
     body_json = request.json
     board = body_json['board']
     cur_player = body_json['cur_player']
-    show_board(board)
     try:
         np_board = np.array(board, dtype=np.int)
         valids = game.getValidMoves(game.getCanonicalForm(np_board, cur_player), 1)
         positions = np.argwhere(valids == 1).flatten().tolist()
         twoDPositions = [action_to_position(i) for i in positions]
-        for i in twoDPositions:
-            print(i)
         return {"valid_actions": twoDPositions}
     except Exception:
         abort(500)
@@ -130,4 +127,3 @@ def test():
 if __name__ == '__main__':
     ai = ai_factory()
     app.run()
-    # print(test())
