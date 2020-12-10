@@ -1,14 +1,12 @@
+import numpy as np
 from flask import Flask, make_response
-from flask import request
 from flask import abort
+from flask import request
 from flask_cors import CORS
-import Arena
+
 from MCTS import MCTS
 from othello.OthelloGame import OthelloGame
-from othello.OthelloPlayers import *
 from othello.pytorch.NNet import NNetWrapper as NNet
-
-import numpy as np
 from utils import *
 
 game = OthelloGame(8)
@@ -59,7 +57,6 @@ def prob():
     body_json = request.json
     board = body_json['board']
     cur_player = body_json['cur_player']
-    print(body_json)
     try:
         np_board = np.array(board, dtype=np.int)
         action = ai(game.getCanonicalForm(np_board, cur_player))
@@ -104,6 +101,8 @@ def valid():
         np_board = np.array(board, dtype=np.int)
         valids = game.getValidMoves(game.getCanonicalForm(np_board, cur_player), 1)
         positions = np.argwhere(valids == 1).flatten().tolist()
+        if positions[0] == 64:
+            return {"valid_actions": []}
         twoDPositions = [action_to_position(i) for i in positions]
         return {"valid_actions": twoDPositions}
     except Exception:
